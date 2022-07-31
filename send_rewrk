@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+rewrk -c 20 -t 10 -d 30s -h http://localhost:1729 --pct --header "Content-Type: application/json" --body '{"text":"this is a sentence.","count":1}'

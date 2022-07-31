@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+curl "http://localhost:1729/" --header "Content-Type: application/json" --data '{"text":"this is a sentence.","count":1}'

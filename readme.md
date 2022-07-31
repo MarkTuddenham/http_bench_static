@@ -13,25 +13,29 @@ Optional timeout of e.g. 5s for the whole request
 ## Results
 1 worker, 10 threads
 
-Framework | lang | 20 connections (95th %, req/s) | 100 connections (95th %, req/s)
----|---|---|---
-Flask & Gunicorn | python | 4657.61ms, 4.67 | 20780.28ms, 4.67
-axum | rust | 2012.50ms, 9.33 | 2032.59ms, 46.66
-
+Framework | lang | 20 conns (95%, req/s) | 100 conns (95%, req/s) | 250 conns (95%, req/s)
+---|---|---|---|---
+Flask & Gunicorn | python | 4657.61ms, 4.67 | 20780.28ms, 4.67 | ---
+axum | rust | 2002.24ms, 9.33 | 2029.32ms, 46.67 | 2033.94ms, 116.66 
+tide | rust | 2050.29ms, 9.33 | 2049.41ms, 46.66 | 2055.51ms, 116.67
 
 To do:
-- Tide (rust)
-- warp (rust)
 - actix-web (rust)
+- warp (rust)
+- ? golang servers
 
-## Tools
-[rewrk](https://github.com/lnx-search/rewrk)
-```
-./send_rewrk
-```
+## How to run
+### Servers
+For the rust servers you must `cd` in to `./rust`.
 
-[hyperfine](https://github.com/sharkdp/hyperfine)
-```
-hyperfine ./send_curl
-```
+- flask: `./py/run_flask`
+- axum: `cargo run --release --bin axum_server`
+- tide: `ASYNC_STD_THREAD_COUNT=1 cargo run --release --bin tide_server`
+
+### Benchmarks
+- 20:  `CONNS=20 ./run_rewrk`
+- 100: `CONNS=100 ./run_rewrk`
+- 250: `CONNS=250 THREADS=20 ./run_rewrk`
+
+Thanks to [rewrk](https://github.com/lnx-search/rewrk)
 

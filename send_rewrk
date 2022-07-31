@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-if [ -z $CONN ]; then
-	export CONN=20
-fi
-if [ -z $THREADS ]; then
-	export THREADS=10
-fi
-rewrk -c $CONN -t $THREADS -d 30s -h http://localhost:1729 --pct --header "Content-Type: application/json" --body '{"text":"this is a sentence.","count":1}'

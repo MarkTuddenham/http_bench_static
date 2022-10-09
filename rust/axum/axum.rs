@@ -20,7 +20,8 @@ struct APIResponse {
     texts: Vec<String>,
 }
 
-#[tokio::main(flavor = "multi_thread", worker_threads = 1)]
+// #[tokio::main(flavor = "multi_thread", worker_threads = 15)]
+#[tokio::main(flavor = "current_thread")]
 async fn main() {
     let app = Router::new().route("/", get(task)).route("/", post(task));
 
